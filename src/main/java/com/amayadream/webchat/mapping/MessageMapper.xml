@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.amayadream.webchat.dao.IMessageDao">
+
+    <resultMap id="BaseResultMap" type="com.amayadream.webchat.pojo.Message">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="fromid" property="from" jdbcType="VARCHAR"/>
+        <result column="toid" property="to" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="keyword1" property="keyword1" jdbcType="VARCHAR"/>
+        <result column="keyword2" property="keyword2" jdbcType="VARCHAR"/>
+        <result column="keyword3" property="keyword3" jdbcType="VARCHAR"/>
+        <result column="keyword4" property="keyword4" jdbcType="VARCHAR"/>
+        <result column="keyword5" property="keyword5" jdbcType="VARCHAR"/>
+<!--        <collection property="keywords" ofType="java.lang.String" javaType="java.util.ArrayList">-->
+<!--            &lt;!&ndash; 这里使用构造方法注入，String 没有属性&ndash;&gt;-->
+<!--            <constructor>-->
+<!--                <arg column="keyword1"/>-->
+<!--                <arg column="keyword2"/>-->
+<!--                <arg column="keyword3"/>-->
+<!--                <arg column="keyword4"/>-->
+<!--                <arg column="keyword5"/>-->
+<!--            </constructor>-->
+<!--        </collection>-->
+    </resultMap>
+
+    <!--        <insert id="theNewTbTravelUser"  parameterType="java.util.List">-->
+    <!--            insert into tb_travel_user-->
+    <!--            (id,sell_ticket_id,user_name,user_card_id,user_type,created,creator)-->
+    <!--            values-->
+    <!--            <foreach collection="list" item="item" index="index" separator="," >-->
+    <!--                (-->
+    <!--                #{item.id},-->
+    <!--                #{item.sellTicketId},-->
+    <!--                #{item.userName},-->
+    <!--                #{item.userCardId},-->
+    <!--                #{item.userType},-->
+    <!--                #{item.created},-->
+    <!--                #{item.creator}-->
+    <!--                )-->
+    <!--            </foreach>-->
+    <!--        </insert>-->
+
+
+    <sql id="Base_Column_List">
+        id, fromid, time,toid,type, content, keyword1,keyword2,keyword3,keyword4,keyword5
+    </sql>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT id,
+               fromid,
+               toid,
+               type,
+               time,
+               content,
+               keyword1,
+               keyword2,
+               keyword3,
+               keyword4,
+               keyword5
+        FROM message
+        ORDER BY fromid DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <!--    <select id="selectLogByUserid" resultMap="BaseResultMap">-->
+    <!--        SELECT id, userid, time, type, detail, ip-->
+    <!--        FROM log-->
+    <!--        WHERE USERID = #{userid, jdbcType=VARCHAR}-->
+    <!--        ORDER BY TIME DESC-->
+    <!--        LIMIT #{offset}, #{limit}-->
+    <!--  </select>-->
+
+    <select id="selectCount" resultMap="BaseResultMap">
+        SELECT COUNT(*) id
+        FROM message
+    </select>
+
+    <!--    <select id="selectCountByUserid" resultMap="BaseResultMap">-->
+    <!--    SELECT COUNT(*) USERID FROM log-->
+    <!--    WHERE USERID = #{userid, jdbcType=VARCHAR}-->
+    <!--    </select>-->
+
+    <insert id="insert" parameterType="com.amayadream.webchat.pojo.Message">
+        INSERT INTO message (id,fromid, time,toid,type ,content,keyword1,keyword2,keyword3,keyword4,keyword5)
+        VALUES (#{id, jdbcType=VARCHAR},
+                #{from, jdbcType=VARCHAR},
+                #{time,jdbcType=VARCHAR},
+                #{to, jdbcType=VARCHAR},
+                #{type, jdbcType=VARCHAR},
+                #{content, jdbcType=INTEGER},
+                #{keyword1,jdbcType=VARCHAR},
+                #{keyword2,jdbcType=VARCHAR},
+                #{keyword3,jdbcType=VARCHAR},
+                #{keyword4,jdbcType=VARCHAR},
+                #{keyword5,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <!--    <delete id="delete" parameterType="string">-->
+    <!--    DELETE FROM log-->
+    <!--    WHERE ID = #{id, jdbcType=VARCHAR}-->
+    <!--  </delete>-->
+
+    <!--    <delete id="deleteThisUser" parameterType="string">-->
+    <!--    DELETE FROM log-->
+    <!--    WHERE USERID = #{userid, jdbcType=VARCHAR}-->
+    <!--  </delete>-->
+
+    <!--    <delete id="deleteAll">-->
+    <!--    DELETE FROM log-->
+    <!--  </delete>-->
+
+</mapper>
