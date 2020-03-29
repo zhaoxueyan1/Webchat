@@ -93,12 +93,12 @@ public class ApiUtil {
         // 实际调用时应当使用系统当前时间，例如：
         params.put("Timestamp", System.currentTimeMillis() / 1000);
         //params.put("Timestamp", 1585388444); // 公共参数
-        params.put("SecretId", "AKIDrVtFNF0JxMVNCsEUXWHlz9UaQ0DE2Twb"); // 公共参数
+        params.put("SecretId", ""); // 公共参数
         params.put("Action", "KeywordsExtraction"); // 公共参数
         params.put("Version", "2019-04-08"); // 公共参数
         params.put("Region", "ap-guangzhou"); // 公共参数
         params.put("Text", content); // 公共参数
-        params.put("Signature", sign(getStringToSign(params), "bw1qujIadS1JOlvrZmX5NTItDHkncBT0", "HmacSHA1")); // 公共参数
+        params.put("Signature", sign(getStringToSign(params), "", "HmacSHA1")); // 公共参数
         //System.out.println();
         return JSON.parseObject(httpRequest(getUrl(params))).getJSONObject("Response").getJSONArray("Keywords");
     }
